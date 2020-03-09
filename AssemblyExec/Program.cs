@@ -24,10 +24,10 @@ namespace AssemblyExec
             object[] args = new[] { param };
             _ = meth.Invoke(null, args);
         }
-        static void Main(List<string> args)
+        static void Main(string[] args)
         {
             delURL param = LoadURL;
-            List<string> dummy = args;
+            var dummy = new List<string>(args);
             dummy.RemoveRange(0, 2);
             Exec(param(args[1]), dummy.ToArray());
         }

